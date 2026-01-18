@@ -61,6 +61,14 @@ npm install
 npm run dev
 ```
 
+#### **Urban Services** (Port 5003)
+```bash
+cd backend/services/urban
+npm install
+# Create .env file
+npm run dev
+```
+
 ### 3. Frontend Setup (Port 5173)
 ```bash
 cd frontend
@@ -83,6 +91,7 @@ SERVICE_JWT_SECRET=shared_service_secret_key
 FRONTEND_URL=http://localhost:5173
 HEALTHCARE_URL=http://localhost:5001
 AGRICULTURE_URL=http://localhost:5002
+URBAN_URL=http://localhost:5003
 ```
 
 ### **Healthcare Service (`backend/services/healthcare/.env`)**
@@ -96,6 +105,13 @@ SERVICE_JWT_SECRET=shared_service_secret_key
 ```env
 PORT=5002
 MONGO_URI=your_agriculture_db_connection_string
+SERVICE_JWT_SECRET=shared_service_secret_key
+```
+
+### **Urban Services (`backend/services/urban/.env`)**
+```env
+PORT=5003
+MONGO_URI=your_urban_db_connection_string
 SERVICE_JWT_SECRET=shared_service_secret_key
 ```
 
@@ -113,12 +129,12 @@ The system automatically seeds these users if they don't exist:
 | **Healthcare Officer** | `officer.health@nexus.gov` | `officer123` |
 | **Agriculture Officer** | `officer.agri@nexus.gov` | `officer123` |
 
-> **Citizen Users**: You can register a new account from the login page.
+> **Citizen Users**: You can register a new account from the sign up page.
 
 ---
 
 ## Basic Error Handling & Architecture Note
 
-- If you see `Connection Refused`, ensure all 3 backend services are running.
-- **Internal Services**: You cannot access `http://localhost:5001` or `http://localhost:5002` directly from the browser/Postman (except for basic health checks). All requests must go through the Gateway (`http://localhost:5000`).
+- If you see `Connection Refused`, ensure all 4 backend services are running (Gateway + 3 microservices).
+- **Internal Services**: You cannot access `http://localhost:5001`, `http://localhost:5002`, or `http://localhost:5003` directly from the browser/Postman (except for basic health checks). All requests must go through the Gateway (`http://localhost:5000`).
 - **Database**: Ensure your IP is whitelisted in MongoDB Atlas.
